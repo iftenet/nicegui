@@ -17,7 +17,7 @@ class Header(Group):
 class Drawer(Group):
 
     def __init__(self, side: str, *, fixed: bool = True, top_corner: bool = False, bottom_corner: bool = False) -> None:
-        assert side in ['left', 'right']
+        assert side in {'left', 'right'}
         view = jp.QDrawer(side=side, content_class='q-pa-md', content_style='', temp=False)
         super().__init__(view)
         code = list(find_parent_page().layout.view)

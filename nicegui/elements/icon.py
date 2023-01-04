@@ -14,6 +14,6 @@ class Icon(Element):
 
         :param name: the name of the icon
         """
-        view = jp.QIcon(name=name, classes=f'q-pt-xs', size='20px', temp=False)
+        view = jp.QIcon(name=name, classes='q-pt-xs', size='20px', temp=False)
 
         super().__init__(view)

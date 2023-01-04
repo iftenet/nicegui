@@ -228,9 +228,11 @@ class page:
             )
             try:
                 with Context(self.page.view):
-                    if 'request' in inspect.signature(func).parameters:
-                        if self.shared:
-                            raise RuntimeError('Cannot use `request` argument in shared page')
+                    if (
+                        'request' in inspect.signature(func).parameters
+                        and self.shared
+                    ):
+                        raise RuntimeError('Cannot use `request` argument in shared page')
                     await self.connected(request)
                     await self.before_content()
                     args = {**kwargs, **convert_arguments(request, self.converters, func)}
@@ -249,6 +251,7 @@ class page:
             except Exception as e:
                 globals.log.exception(e)
                 return error(500, str(e))
+
         builder = PageBuilder(decorated, self.shared, self.favicon)
         if globals.state != globals.State.STOPPED:
             builder.create_route(self.route)
@@ -313,7 +316,7 @@ def init_auto_index_page() -> None:
     page.set_favicon(globals.config.favicon)
     page.dark = globals.config.dark
     page.view.classes = globals.config.main_page_classes
-    assert len(view_stack) == 0
+    assert not view_stack
 
 
 def create_page_routes() -> None:

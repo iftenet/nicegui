@@ -79,7 +79,7 @@ def get(self, path: str):
 
 
 def add_dependencies(py_filepath: str, dependencies: List[str] = []) -> None:
-    vue_filepath = os.path.splitext(os.path.realpath(py_filepath))[0] + '.js'
+    vue_filepath = f'{os.path.splitext(os.path.realpath(py_filepath))[0]}.js'
 
     for dependency in dependencies:
         is_remote = dependency.startswith('http://') or dependency.startswith('https://')

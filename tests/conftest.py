@@ -5,8 +5,7 @@ from typing import Dict, Generator
 import icecream
 import pytest
 
-if True:  # NOTE: prevent formatter from sorting the imports (NiceGUI must come before JustPy)
-    from nicegui import globals
+from nicegui import globals
 
 from justpy.htmlcomponents import JustpyBaseComponent, WebPage
 from selenium import webdriver

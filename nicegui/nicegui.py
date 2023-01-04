@@ -2,13 +2,12 @@
 import asyncio
 from typing import Awaitable, Callable
 
-if True:  # NOTE: prevent formatter from mixing up these lines
-    import builtins
-    print_backup = builtins.print
-    builtins.print = lambda *args, **kwargs: kwargs.get('flush') and print_backup(*args, **kwargs)
-    from .ui import Ui  # NOTE: before justpy
-    import justpy as jp
-    builtins.print = print_backup
+import builtins
+print_backup = builtins.print
+builtins.print = lambda *args, **kwargs: kwargs.get('flush') and print_backup(*args, **kwargs)
+from .ui import Ui  # NOTE: before justpy
+import justpy as jp
+builtins.print = print_backup
 
 from . import binding, globals
 from .page import create_favicon_routes, create_page_routes, init_auto_index_page

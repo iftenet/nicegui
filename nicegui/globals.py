@@ -39,7 +39,11 @@ shutdown_handlers: List[Union[Callable, Awaitable]] = []
 
 
 def find_route(function: Callable) -> str:
-    routes = [route for route, page_builder in page_builders.items() if page_builder.function == function]
-    if not routes:
+    if routes := [
+        route
+        for route, page_builder in page_builders.items()
+        if page_builder.function == function
+    ]:
+        return routes[0]
+    else:
         raise ValueError(f'Invalid page function {function}')
-    return routes[0]

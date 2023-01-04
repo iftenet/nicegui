@@ -18,4 +18,4 @@ class FloatElement(ValueElement):
         elif self.format is None:
             return str(value)
         else:
-            return self.format % float(value)
+            return self.format % value

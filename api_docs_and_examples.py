@@ -19,7 +19,7 @@ class example:
         self.content = content
         self.markdown_classes = f'mr-8 w-full flex-none lg:w-{48 if tight else 80} xl:w-80'
         self.rendering_classes = f'w-{48 if tight else 64} flex-none lg:mt-12'
-        self.source_classes = f'w-80 flex-grow overflow-auto lg:mt-12'
+        self.source_classes = 'w-80 flex-grow overflow-auto lg:mt-12'
 
     def __call__(self, f: Callable) -> Callable:
         with ui.row().classes('flex w-full'):
@@ -52,8 +52,7 @@ class example:
                 if line.startswith('# ui.run('):
                     break
             else:
-                code.append('')
-                code.append('ui.run()')
+                code.extend(('', 'ui.run()'))
             code.append('```')
             code = '\n'.join(code)
             ui.markdown(code).classes(self.source_classes)

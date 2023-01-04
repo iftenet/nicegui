@@ -107,13 +107,10 @@ class Screen:
             if not child.find_all() and child.text:
                 content += depth + child.getText()
                 is_element = True
-            classes = child.get('class', '')
-            if classes:
+            if classes := child.get('class', ''):
                 if classes[0] in ['row', 'column', 'q-card']:
                     content += depth + remove_prefix(classes[0], 'q-')
                     is_element = True
-                if classes[0] == 'q-field':
-                    pass
                 [classes.remove(c) for c in IGNORED_CLASSES if c in classes]
                 for i, c in enumerate(classes):
                     classes[i] = remove_prefix(c, 'q-field--')

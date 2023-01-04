@@ -18,8 +18,11 @@ class map(ui.card):
                 location = location.value
             if isinstance(location, dict):
                 location = location.get('location', location.get('value', None))
-            if not isinstance(location, tuple) or len(location) != 2 or not all(
-                    isinstance(x, float) or isinstance(x, int) for x in location):
+            if (
+                not isinstance(location, tuple)
+                or len(location) != 2
+                or not all(isinstance(x, (float, int)) for x in location)
+            ):
                 self.style('opacity: 0.1;')
                 logging.warning(f'Invalid location: {location}')
                 return

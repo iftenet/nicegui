@@ -10,7 +10,7 @@ from . import globals
 from .task_logger import create_task
 
 bindings = defaultdict(list)
-bindable_properties = dict()
+bindable_properties = {}
 active_links = []
 
 
@@ -89,14 +89,14 @@ class BindableProperty:
         self.name = name
 
     def __get__(self, owner: Any, _=None):
-        return getattr(owner, '_' + self.name)
+        return getattr(owner, f'_{self.name}')
 
     def __set__(self, owner: Any, value: Any):
-        has_attribute = hasattr(owner, '_' + self.name)
-        value_changed = has_attribute and getattr(owner, '_' + self.name) != value
+        has_attribute = hasattr(owner, f'_{self.name}')
+        value_changed = has_attribute and getattr(owner, f'_{self.name}') != value
         if has_attribute and not value_changed:
             return
-        setattr(owner, '_' + self.name, value)
+        setattr(owner, f'_{self.name}', value)
         bindable_properties[(id(owner), self.name)] = owner
         update_views(propagate(owner, self.name))
         if value_changed and self.on_change is not None:
